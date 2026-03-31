@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rens Vermeijden — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --accent: #d4f53c;
+      --accent2: #b8e02a;
+      --text: #f0ede6;
+      --muted: #888;
+      --border: rgba(255,255,255,0.07);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(14,14,14,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 10rem 4rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(212,245,60,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(4.5rem, 8vw, 8rem);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.25s forwards;
+    }
+
+    .hero-title .outline {
+      -webkit-text-stroke: 1.5px var(--text);
+      color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 420px;
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--accent);
+      color: #0e0e0e;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+      transition: background 0.2s, transform 0.2s;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.55s forwards;
+    }
+
+    .hero-cta:hover { background: var(--accent2); transform: translateY(-2px); }
+
+    .hero-visual {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      opacity: 0;
+      animation: fadeIn 1s 0.6s forwards;
+    }
+
+    .hero-badge {
+      position: relative;
+    }
+
+    .hero-badge-ring {
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-badge-ring::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      border: 1px dashed rgba(212,245,60,0.25);
+      animation: spin 30s linear infinite;
+    }
+
+    .hero-initials {
+      font-family: var(--font-display);
+      font-size: 7rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .hero-tag {
+      position: absolute;
+      bottom: -10px; left: -30px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.2rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-tag span { color: var(--accent); font-weight: 500; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 4rem; }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(240,237,230,0.8);
+      line-height: 1.8;
+    }
+
+    .about-text p + p { margin-top: 1.25rem; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .skill-pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 0.7rem 1rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-pill::before {
+      content: '';
+      display: block;
+      width: 6px; height: 6px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .skill-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+
+    .exp-date {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      padding-top: 0.15rem;
+    }
+
+    .exp-role {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .exp-company {
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── AWARDS ── */
+    #awards { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .awards-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .award-card {
+      background: var(--surface2);
+      padding: 2.5rem 2rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .award-card:hover { border-color: var(--accent); }
+
+    .award-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+    .award-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .award-org {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s;
+    }
+
+    .project-card:hover { border-color: var(--accent); }
+
+    .project-thumb {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, var(--surface2) 0%, #222 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      color: rgba(212,245,60,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, var(--surface));
+    }
+
+    .project-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
+
+    .project-num {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: gap 0.2s;
+    }
+
+    .project-link:hover { gap: 0.9rem; }
+
+    .project-link::after { content: '→'; }
+
+    /* ── PERSONALITY ── */
+    .traits-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .trait {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.06em;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(240,237,230,0.25);
+      transition: color 0.2s, -webkit-text-stroke 0.2s;
+      cursor: default;
+      line-height: 1;
+    }
+
+    .trait:hover {
+      color: var(--accent);
+      -webkit-text-stroke: 1px var(--accent);
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--accent);
+      color: #0e0e0e;
+    }
+
+    #contact .section-label { color: rgba(0,0,0,0.5); }
+    #contact .section-title { color: #0e0e0e; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .contact-text {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(0,0,0,0.7);
+    }
+
+    .contact-details { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .contact-item-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.5);
+    }
+
+    .contact-item-value {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #0e0e0e;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #0e0e0e;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      margin-top: 2rem;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+      transition: opacity 0.2s;
+    }
+
+    .contact-btn:hover { opacity: 0.85; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a;
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 2rem; }
+      .hero { grid-template-columns: 1fr; padding: 8rem 2rem 4rem; }
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+      .awards-row { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">RV<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">Over mij</a></li>
+      <li><a href="#experience">Ervaring</a></li>
+      <li><a href="#projects">Projecten</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Business Innovator &amp; Creative Professional</p>
+      <h1 class="hero-title">
+        RENS<br>
+        <span class="outline">VERMEIJ</span><br>
+        DEN
+      </h1>
+      <p class="hero-desc">
+        Overzicht houden, helder communiceren en creatieve oplossingen bedenken —
+        dat is wat ik doe. Gedreven, sociaal en altijd nieuwsgierig naar wat er beter kan.
+      </p>
+      <a class="hero-cta" href="#projects">Bekijk mijn werk</a>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-badge">
+        <div class="hero-badge-ring">
+          <span class="hero-initials">RV</span>
+        </div>
+        <div class="hero-tag">Business Innovator <span>@ Avans</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">Over mij</p>
+    <h2 class="section-title">Veelzijdig &amp;<br>Resultaatgericht</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Als Business Innovator ben ik goed in het houden van overzicht, duidelijk communiceren,
+          creatieve oplossingen bedenken en blijf ik altijd nieuwsgierig.
+        </p>
+        <p>
+          Wat mij extra waardevol maakt, is dat ik handig ben met programma's zoals Illustrator,
+          InDesign, Canva en een beetje Photoshop.
+        </p>
+        <p>
+          Ook ben ik sociaal, wat betekent dat ik makkelijk samenwerk, goed kan netwerken
+          en sterke relaties kan opbouwen. Deze combinatie maakt mij tot een veelzijdige en
+          succesvolle professional in zakelijke innovatie.
+        </p>
+        <p style="margin-top:2rem; font-size:0.82rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent);">
+          Studie: Business Innovation — Avans Hogeschool
+        </p>
+      </div>
+      <div>
+        <p class="section-label" style="margin-bottom:1.25rem;">Software &amp; Vaardigheden</p>
+        <div class="skills-grid">
+          <div class="skill-pill">InDesign</div>
+          <div class="skill-pill">Illustrator</div>
+          <div class="skill-pill">Canva</div>
+          <div class="skill-pill">Photoshop</div>
+          <div class="skill-pill">Excel</div>
+          <div class="skill-pill">Word</div>
+          <div class="skill-pill">Communicatief</div>
+          <div class="skill-pill">Creatief denken</div>
+          <div class="skill-pill">Netwerken</div>
+          <div class="skill-pill">Samenwerken</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label">Werkervaring</p>
+    <h2 class="section-title">Wat ik heb<br>gedaan</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-date">Jan 2025 — Heden</div>
+        <div>
+          <div class="exp-role">Freelance EMS Personal Trainer</div>
+          <div class="exp-company">Zelfstandig</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Okt 2023 — Heden</div>
+        <div>
+          <div class="exp-role">Part-time Klantenservice Medewerker</div>
+          <div class="exp-company">Passa Sports</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Mei 2022 — Heden</div>
+        <div>
+          <div class="exp-role">Freelance Medewerker</div>
+          <div class="exp-company">Logistiek &amp; Evenementen Branche</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Nov 2021 — Jun 2023</div>
+        <div>
+          <div class="exp-role">Klantenservice / Magazijnbeheer / Social Media</div>
+          <div class="exp-company">Iso-Direct, Waalwijk</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Mrt 2022 — Okt 2022</div>
+        <div>
+          <div class="exp-role">Face-to-face Fondsenwerving &amp; Sales</div>
+          <div class="exp-company">Direct-Result, Tilburg</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Jul 2020 — Aug 2020</div>
+        <div>
+          <div class="exp-role">Ondersteunend Tekenaar (Vakantiewerk)</div>
+          <div class="exp-company">Moons Architecten</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Apr 2019 — Jun 2022</div>
+        <div>
+          <div class="exp-role">Algemeen Medewerker (Part-time)</div>
+          <div class="exp-company">Bijl Carwash, Waalwijk</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">Jul 2019 — Aug 2019</div>
+        <div>
+          <div class="exp-role">Magazijn Medewerker (Vakantiewerk)</div>
+          <div class="exp-company">Beeztees</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards">
+    <p class="section-label">Awards</p>
+    <h2 class="section-title">Erkende<br>Prestaties</h2>
+    <div class="awards-row">
+      <div class="award-card">
+        <div class="award-icon">🏆</div>
+        <div class="award-title">Principes van Innovatie</div>
+        <div class="award-org">Okt 2023 — Avans Hogeschool</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">🔬</div>
+        <div class="award-title">Onderzoek</div>
+        <div class="award-org">Jan 2024 — Avans Hogeschool</div>
+      </div>
+      <div class="award-card">
+        <div class="award-icon">✏️</div>
+        <div class="award-title">Design</div>
+        <div class="award-org">Apr 2024 — Avans Hogeschool</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Projecten</p>
+    <h2 class="section-title">Mijn<br>Werk</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb">01</div>
+        <div class="project-body">
+          <p class="project-num">Project 01</p>
+          <h3 class="project-title">Innovatie Campagne</h3>
+          <p class="project-desc">
+            Een creatieve campagne gericht op zakelijke innovatie, waarbij strategie en design hand in hand gaan.
+            Placeholder — voeg hier jouw eigen projectbeschrijving toe.
+          </p>
+          <a class="project-link" href="project-1.html">Bekijk project</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb">02</div>
+        <div class="project-body">
+          <p class="project-num">Project 02</p>
+          <h3 class="project-title">Brand Identity</h3>
+          <p class="project-desc">
+            Visuele identiteit ontwikkeld voor een startup, met gebruik van Adobe Illustrator en InDesign.
+            Placeholder — voeg hier jouw eigen projectbeschrijving toe.
+          </p>
+          <a class="project-link" href="project-2.html">Bekijk project</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb">03</div>
+        <div class="project-body">
+          <p class="project-num">Project 03</p>
+          <h3 class="project-title">Evenement Concept</h3>
+          <p class="project-desc">
+            Conceptontwikkeling en coördinatie van een zakelijk evenement, van idee tot uitvoering.
+            Placeholder — voeg hier jouw eigen projectbeschrijving toe.
+          </p>
+          <a class="project-link" href="project-3.html">Bekijk project</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PERSONALITY -->
+  <section id="personality" style="border-top: 1px solid var(--border);">
+    <p class="section-label">Persoonlijkheid</p>
+    <h2 class="section-title">Wie ik ben</h2>
+    <div class="traits-wrap">
+      <span class="trait">Sociaal</span>
+      <span class="trait">Creatief</span>
+      <span class="trait">Communicatief</span>
+      <span class="trait">Sportief</span>
+      <span class="trait">Nieuwsgierig</span>
+      <span class="trait">Doorzetter</span>
+      <span class="trait">Productief</span>
+      <span class="trait">Overtuigend</span>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Laten we<br>Praten</h2>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-text">
+          Geïnteresseerd in samenwerking of wil je meer weten over mijn werk?
+          Neem gerust contact op — ik sta altijd open voor nieuwe kansen en gesprekken.
+        </p>
+        <a class="contact-btn" href="mailto:rens@example.com">Stuur een bericht</a>
+      </div>
+      <div class="contact-details">
+        <div class="contact-item">
+          <span class="contact-item-label">Locatie</span>
+          <span class="contact-item-value">Nederland</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Studie</span>
+          <span class="contact-item-value">Business Innovation — Avans Hogeschool</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-label">Beschikbaarheid</span>
+          <span class="contact-item-value">Open voor opdrachten</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>Rens Vermeijden<span style="color:var(--accent);">.</span></span>
+    <span>© 2025 — Business Innovation Portfolio</span>
+  </footer>
+
+</body>
+</html>

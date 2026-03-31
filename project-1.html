@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project 01 — Innovatie Campagne | Rens Vermeijden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --accent: #d4f53c;
+      --text: #f0ede6;
+      --muted: #888;
+      --border: rgba(255,255,255,0.07);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(14,14,14,0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--accent); }
+    .back-btn::before { content: '←'; }
+
+    .hero {
+      padding: 10rem 4rem 5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 9vw, 8rem);
+      line-height: 0.92; letter-spacing: 0.02em;
+      margin-bottom: 2.5rem;
+    }
+
+    .project-title .outline {
+      -webkit-text-stroke: 1.5px var(--text); color: transparent;
+    }
+
+    .meta-row {
+      display: flex; gap: 3rem; flex-wrap: wrap;
+      padding: 2rem 0; border-top: 1px solid var(--border);
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .meta-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .meta-value { font-size: 0.95rem; font-weight: 500; }
+
+    .placeholder-img {
+      margin: 4rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      aspect-ratio: 16/7;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 6rem; color: rgba(212,245,60,0.12);
+      letter-spacing: 0.05em;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .placeholder-img::before {
+      content: 'AFBEELDING PLACEHOLDER';
+      position: absolute; bottom: 1.5rem; left: 2rem;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      color: var(--muted); font-family: var(--font-body);
+    }
+
+    .content {
+      padding: 4rem;
+      display: grid; grid-template-columns: 2fr 1fr; gap: 5rem; align-items: start;
+    }
+
+    .content-body h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem; letter-spacing: 0.03em;
+      margin-bottom: 1.25rem; color: var(--accent);
+    }
+
+    .content-body p {
+      font-size: 1.02rem; font-weight: 300;
+      color: rgba(240,237,230,0.8); line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .sidebar-card {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 2rem;
+    }
+
+    .sidebar-card h3 {
+      font-family: var(--font-display); font-size: 1.2rem;
+      letter-spacing: 0.05em; margin-bottom: 1.25rem;
+      color: var(--accent);
+    }
+
+    .sidebar-tag {
+      display: inline-block;
+      background: var(--surface2); border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem; font-size: 0.8rem;
+      margin: 0.2rem; letter-spacing: 0.05em;
+    }
+
+    footer {
+      background: #0a0a0a; border-top: 1px solid var(--border);
+      padding: 2rem 4rem; display: flex; justify-content: space-between;
+      font-size: 0.78rem; color: var(--muted); letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .hero { padding: 8rem 2rem 3rem; }
+      .placeholder-img { margin: 2rem; }
+      .content { padding: 2rem; grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; padding: 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">RV<span>.</span></a>
+    <a class="back-btn" href="index.html">Terug naar portfolio</a>
+  </nav>
+
+  <div class="hero">
+    <p class="project-eyebrow">Project 01 — Business Innovation</p>
+    <h1 class="project-title">
+      INNOVATIE<br>
+      <span class="outline">CAMPAGNE</span>
+    </h1>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-label">Categorie</span>
+        <span class="meta-value">Strategie &amp; Communicatie</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Periode</span>
+        <span class="meta-value">2024</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Tools</span>
+        <span class="meta-value">InDesign, Illustrator, Canva</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Status</span>
+        <span class="meta-value" style="color: var(--accent);">Afgerond</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="placeholder-img">01</div>
+
+  <div class="content">
+    <div class="content-body">
+      <h2>Over dit project</h2>
+      <p>
+        Dit is een placeholder voor jouw eerste project. Vervang deze tekst met een gedetailleerde
+        beschrijving van wat het project inhoudt, wat de aanleiding was, en wat jouw rol daarin was.
+      </p>
+      <p>
+        Beschrijf hier de uitdaging of het probleem dat centraal stond, en welke aanpak je hebt gekozen
+        om tot een oplossing te komen. Wat maakte dit project uniek?
+      </p>
+
+      <h2 style="margin-top: 2.5rem;">Aanpak &amp; Resultaat</h2>
+      <p>
+        Leg hier uit hoe je het project hebt aangepakt: welke stappen heb je gezet, welke tools heb je
+        gebruikt en wat was het eindresultaat? Wat heb je geleerd of bereikt?
+      </p>
+      <p>
+        Voeg hier ook eventuele cijfers, resultaten of feedback toe die het succes van het project
+        onderbouwen. Dit maakt je portfolio sterker en overtuigender.
+      </p>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>Vaardigheden gebruikt</h3>
+        <span class="sidebar-tag">InDesign</span>
+        <span class="sidebar-tag">Illustrator</span>
+        <span class="sidebar-tag">Canva</span>
+        <span class="sidebar-tag">Strategie</span>
+        <span class="sidebar-tag">Communicatie</span>
+        <span class="sidebar-tag">Creatief denken</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Rens Vermeijden<span style="color:var(--accent);">.</span></span>
+    <span>© 2025 — Business Innovation Portfolio</span>
+  </footer>
+
+</body>
+</html>
